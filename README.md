@@ -11,8 +11,8 @@ According to the Task, has been implemented next:
 
 For run project please do the next steps
 --------------
-cd ./prod_lib/src
-sudo pip install -r requirements.txt
-python manage.py run_init_db
-python manage.py post_test_data
-python manage.py runserver
+    cd ./prod_lib/src
+    sudo pip install -r requirements.txt
+    python manage.py run_init_db
+    python manage.py post_test_data
+    python manage.py runserver
