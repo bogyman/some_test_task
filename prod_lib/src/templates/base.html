@@ -22,11 +22,13 @@
       
       {% block header %}
         <div style="float:left; width:100%">
-          {% if is_logined() %}
             <div style="float:left; height:32px ;padding-top:5px; " >
               <a style="float:left;padding-right:10px" href="{{ url_for('index') }}">Home</a>
+          {% if is_authorized() %}
               <a style="float:left;padding-right:10px" href="{{ url_for('list_books') }}">View Library </a>
+          {% endif %}
             </div>
+          {% if is_authorized() %}
             {% import 'macros/search.html' as search %}
             {{ search.render_book_search_form(form) }}
           {% endif %}
@@ -37,14 +39,19 @@
           </div>
           <div style="float:right, width:100%" >
               <div  style="float:right">
-                  {% if is_logined() %}
+                {{user_login}}
+                  {% if is_authorized()  %}
                       <a href="/admin">Edit Library</a>
                       &nbsp;&nbsp;&nbsp;
                       <a href="{{ url_for('do_logout') }}">Log out</a>
                   {% else %}
+                    {% if is_logined() %}
+                      <a href="{{ url_for('do_logout') }}">Log out</a>
+                    {%else %}
                       <a href="{{ url_for('do_login') }}">Log in</a>
                       &nbsp;&nbsp;&nbsp;
                       <a href="{{ url_for('registration') }}">Register</a>
+                    {% endif %}
                   {% endif %}
               </div>
           </div>

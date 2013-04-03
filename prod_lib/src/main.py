@@ -24,8 +24,6 @@ admin.add_view(BooksAdminView(Book, db_session))
 admin.add_view(AuthorsAdminView(Author, db_session))
 admin.add_view(UsersAdminView(User, db_session))
 
-app.jinja_env.globals.update(is_logined=lambda: login.current_user.is_authenticated())
-
 
 @app.route('/')
 def index():
@@ -37,23 +35,26 @@ def index():
 @app.route('/books/page/<int:page>', methods=['GET', 'POST'],)
 @login.login_required
 def list_books(page):
-    per_page = 15
-    form = BookSearchForm()
-    books_query = None
-    if request.method == 'POST' and form.q.data and form.validate_on_submit():
-        books_query = Book.query.filter(
-                                        or_(
-                                            Book.authors.any(
-                                                Author.name.like("%{0}%".format(form.q.data))
-                                                ),
-                                            Book.title.like("%{0}%".format(form.q.data))
+    if login.current_user.is_authorized():
+        per_page = 15
+        form = BookSearchForm()
+        books_query = None
+        if request.method == 'POST' and form.q.data and form.validate_on_submit():
+            books_query = Book.query.filter(
+                                            or_(
+                                                Book.authors.any(
+                                                    Author.name.like("%{0}%".format(form.q.data))
+                                                    ),
+                                                Book.title.like("%{0}%".format(form.q.data))
+                                                )
                                             )
-                                        )
+        else:
+            books_query = Book.query
+        items = books_query.limit(per_page).offset((page - 1) * per_page).all()
+        books = Pagination(books_query, page, per_page, books_query.count(), items)
+        return render_template('books.html', books=books, form=form)
     else:
-        books_query = Book.query
-    items = books_query.limit(per_page).offset((page - 1) * per_page).all()
-    books = Pagination(books_query, page, per_page, books_query.count(), items)
-    return render_template('books.html', books=books, form=form)
+        return redirect(url_for("index"))
 
 
 @app.route('/registration/', methods=["GET", "POST"])
@@ -111,3 +112,16 @@ def unauthorized():
     flash("Please log in first.")
     return redirect(url_for("index"))
 
+def is_logined():
+    if not login.current_user.is_anonymous():
+        return login.current_user.is_authenticated()
+    return False
+
+def is_authorized():
+    print login.current_user.__dict__
+    if not login.current_user.is_anonymous():
+        return login.current_user.is_authorized
+    return False    
+
+app.jinja_env.globals.update(is_logined=is_logined)
+app.jinja_env.globals.update(is_authorized=is_authorized)

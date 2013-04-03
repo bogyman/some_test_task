@@ -58,9 +58,11 @@ class User(Base):
     login = db.Column(db.String(255), )
     password = db.Column(db.String(255))
     is_admin = db.Column(db.Boolean)
+    is_authorized = db.Column(db.Boolean)
 
-    def __init__(self, login="", password="", is_admin=False):
+    def __init__(self, login="", password="", is_admin=False, is_authorized=False):
         self.is_admin = is_admin
+        self.is_authorized = is_authorized
         self.login = login
         self.password = generate_password_hash(password)
 

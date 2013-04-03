@@ -53,7 +53,7 @@ class AuthorsAdminView(ModelView):
 
 class UsersAdminView(ModelView):
     can_create = True
-    column_list = ('login', 'is_admin')
+    column_list = ('login', 'is_admin', 'is_authorized')
 
     def is_accessible(self):
         return login.current_user.is_authenticated() and login.current_user.is_admin
@@ -68,4 +68,4 @@ class AdminIndexView(admin.AdminIndexView):
             return redirect(url_for('do_login', redirect_to="admin"))
 
     def is_accessible(self):
-        return not login.current_user.is_anonymous()
+        return  login.current_user.is_admin

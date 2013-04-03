@@ -8,7 +8,7 @@ from database import db_session
 
 def load_test_data():
 	entities = []
-	entities.append(User(login="admin", password="admin", is_admin=True))
+	entities.append(User(login="admin", password="admin", is_admin=True, is_authorized=True))
 	entities.append(User(login="bbb", password="bbb"))
 	entities.append(User(login="ccc", password="ccc"))
 
