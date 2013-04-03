@@ -12,7 +12,7 @@
 {% from "macros/form_field.html" import render_field %}
 <form method=post action="{{url_for('registration')}}">
   <table>
-    {{ form.scrf_token}}
+    {{form.csrf_token}}
     {{ render_field(form.login) }}
     {{ render_field(form.password) }}
     {{ render_field(form.confirm) }}

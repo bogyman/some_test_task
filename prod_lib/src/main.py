@@ -27,7 +27,6 @@ admin.add_view(UsersAdminView(User, db_session))
 
 @app.route('/')
 def index():
-    print login.current_user.is_authenticated()
     return render_template('index.html', form=BookSearchForm())
 
 
@@ -60,11 +59,10 @@ def list_books(page):
 @app.route('/registration/', methods=["GET", "POST"])
 def registration():
     form = RegistrationForm(request.form)
-    print request.method
-    print form.validate_on_submit()
     if request.method == 'POST' and form.validate_on_submit():
         user = User(form.login.data, form.password.data)
         db_session.add(user)
+        db_session.commit()
         flash('Thanks for registering')
         login.login_user(user)
         flash("Logged in successfully.")

@@ -20,21 +20,10 @@ class RegistrationForm(wtf.Form):
     ])
     confirm = wtf.PasswordField('Repeat Password', validators=[validators.Required()])
 
-    # def validate(self):
-    #     if self.login is None:
-    #         self.login.errors = ('Login field is required',)
-    #         return False
-
-    #     if self.password is None:
-    #         self.password.errors = ('Password field is required',)
-    #         return False
-
-    #     user = User.query.filter_by(login=self.login.data).first()
-    #     if user is not None:
-    #         self.login.errors = ('User with the same login is already exists',)
-    #         return False
-
-    #     return True
+    def validate_login(self, field):
+        user = User.query.filter_by(login=field.data).first()
+        if user is not None:
+            raise wtf.ValidationError("User with the same login is already exists")
 
 
 class BookSearchForm(wtf.Form):
