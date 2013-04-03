@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
- {% block header %}
+{% block header %}
  <div class=flash style="float:left; display:none; width:200px">
-            {% for message in get_flashed_messages() %}
-            <p style="margin-top:5px; margin-bottom:5px" >{{ message }}</p>
-            {% endfor %}
-          </div>
+    {% for message in get_flashed_messages() %}
+      <p style="margin-top:5px; margin-bottom:5px" >{{ message }}</p>
+    {% endfor %}
+  </div>
 {% endblock header %}  
 
 {% block content %}

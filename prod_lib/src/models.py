@@ -37,7 +37,7 @@ class Author(Base):
     __tablename__ = "authors"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
+    name = db.Column(db.String(255), unique=True)
     books = db.orm.relationship('Book',
                                 secondary="authors_books",
                                 )

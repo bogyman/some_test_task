@@ -35,7 +35,7 @@ def index():
 @app.route('/books/page/<int:page>', methods=['GET', 'POST'],)
 @login.login_required
 def list_books(page):
-    if login.current_user.is_authorized():
+    if login.current_user.is_authorized:
         per_page = 15
         form = BookSearchForm()
         books_query = None
@@ -118,7 +118,6 @@ def is_logined():
     return False
 
 def is_authorized():
-    print login.current_user.__dict__
     if not login.current_user.is_anonymous():
         return login.current_user.is_authorized
     return False    
