@@ -1,0 +1,12 @@
+{% macro render_book_search_form(form) %}    
+    {% if form %}
+        {% from "macros/form_field.html" import render_field %}
+        <form action="{{ url_for('list_books') }}" method="POST" accept-charset="utf-8" id='search_form' style="float:left; width:400px">
+          <table style="float:left">
+            {{ form.csrf_token }}
+                {{ render_field(form.q) }}
+          </table>
+          <input style="float:left" type="submit" value="Search"/>
+        </form>
+    {% endif %}
+{% endmacro %}

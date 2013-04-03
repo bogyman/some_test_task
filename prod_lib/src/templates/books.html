@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<script type="text/javascript">
+	    $(function() {
+	        $('.pager_link').on('click', function(){
+				$('#search_form').attr('action', $(this).attr('href')).submit();
+				return false;
+	        }); 
+	    })
+
+	 </script>
+
+	{% import 'macros/pager.html' as pager %}
+
+	<div style="padding: 20px; width:100%">
+		{% if books %}
+			{{ pager.render_pagination(books, 'list_books') }}
+			<ul style="padding: 20px; width: 100%;list-style:none">
+					{% for book in books.items %}
+						<li style="padding:10px">
+							#{{book.id}}&nbsp;&nbsp;
+							{{book.title}}
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							{% for author in book.authors %}
+								{{author}}
+							{% endfor %}
+							<hr>
+						</li>
+					{% endfor %}
+			</ul>
+			{{ pager.render_pagination(books, 'list_books') }}
+		{% endif %}
+	</div>
+{% endblock content %}

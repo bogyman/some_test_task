@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+ {% block header %}
+{% endblock header %}  
+
+{% from "macros/form_field.html" import render_field %}
+{% block content %}
+		<form action="" method="POST" accept-charset="utf-8">
+		  <table>
+		  	{{form.csrf_token}}
+    		{{ render_field(form.login) }}
+    		{{ render_field(form.password) }}
+		  </table>
+		  <p><input type="submit" value="Login"/></p>
+		</form>
+
+{% endblock content %}

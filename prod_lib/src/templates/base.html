@@ -1,0 +1,61 @@
+<!doctype html>
+<head>
+  <title>Library Application</title>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.9.1.js') }}"></script>
+  <style type="text/css">
+  a{
+    color:black;
+  }
+  </style>
+  <script type="text/javascript">
+    $(function() {
+      $(".flash").fadeIn(1000, function(){
+        $(".flash").fadeOut(2000)
+      })
+    })
+  </script>
+</head>
+<body >
+  <div style="width: 900px; margin: 0 auto">
+      
+      {% block header %}
+        <div style="float:left; width:100%">
+          {% if is_logined() %}
+            <div style="float:left; height:32px ;padding-top:5px; " >
+              <a style="float:left;padding-right:10px" href="{{ url_for('index') }}">Home</a>
+              <a style="float:left;padding-right:10px" href="{{ url_for('list_books') }}">View Library </a>
+            </div>
+            {% import 'macros/search.html' as search %}
+            {{ search.render_book_search_form(form) }}
+          {% endif %}
+          <div class=flash style="float:left; display:none; width:200px">
+            {% for message in get_flashed_messages() %}
+            <p style="margin-top:5px; margin-bottom:5px" >{{ message }}</p>
+            {% endfor %}
+          </div>
+          <div style="float:right, width:100%" >
+              <div  style="float:right">
+                  {% if is_logined() %}
+                      <a href="/admin">Edit Library</a>
+                      &nbsp;&nbsp;&nbsp;
+                      <a href="{{ url_for('do_logout') }}">Log out</a>
+                  {% else %}
+                      <a href="{{ url_for('do_login') }}">Log in</a>
+                      &nbsp;&nbsp;&nbsp;
+                      <a href="{{ url_for('registration') }}">Register</a>
+                  {% endif %}
+              </div>
+          </div>
+      </div>
+      {% endblock header %}  
+      
+      <div style="float: left; width:100%">
+        {% block content %}
+        {% endblock content %}
+      </div>
+  </div
+</body>
+</html>
+

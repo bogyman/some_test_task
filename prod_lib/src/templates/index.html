@@ -1,0 +1,21 @@
+{% extends '/base.html' %}
+
+{% block content %}
+<h2>Wellcome to Our Library</h2>
+<h3>In Our Library you can:</h4>
+<ul style="font-size:18px">
+    <li>If You are anonymus</li>
+        <ul>
+            <li>View this Page</li>                
+            <li>Get authentication!</li>
+        </ul>
+
+    <li>Else</li>
+        <ul>
+            <li>Go to the Edit Library Page</li>                
+            <li>Search The Book.(Your keyword will be searched in the Books` titles and Authors` names)</li>
+            <li>View full <a href="{{url_for('list_books')}}">list of books</a></li>
+        </ul>
+</ul>
+
+{% endblock content %}
