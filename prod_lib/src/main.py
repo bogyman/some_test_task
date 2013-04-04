@@ -27,7 +27,6 @@ admin.add_view(UsersAdminView(User, db_session))
 
 @app.route('/')
 def index():
-    print login.current_user.is_authenticated()
     return render_template('index.html', form=BookSearchForm())
 
 
@@ -35,7 +34,7 @@ def index():
 @app.route('/books/page/<int:page>', methods=['GET', 'POST'],)
 @login.login_required
 def list_books(page):
-    if login.current_user.is_authorized():
+    if login.current_user.is_authorized:
         per_page = 15
         form = BookSearchForm()
         books_query = None
@@ -60,11 +59,10 @@ def list_books(page):
 @app.route('/registration/', methods=["GET", "POST"])
 def registration():
     form = RegistrationForm(request.form)
-    print request.method
-    print form.validate_on_submit()
     if request.method == 'POST' and form.validate_on_submit():
         user = User(form.login.data, form.password.data)
         db_session.add(user)
+        db_session.commit()
         flash('Thanks for registering')
         login.login_user(user)
         flash("Logged in successfully.")
@@ -118,7 +116,6 @@ def is_logined():
     return False
 
 def is_authorized():
-    print login.current_user.__dict__
     if not login.current_user.is_anonymous():
         return login.current_user.is_authorized
     return False    

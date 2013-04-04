@@ -21,8 +21,8 @@
 					{% for book in books.items %}
 						<li style="padding:10px">
 							#{{book.id}}&nbsp;&nbsp;
-							{{book.title}}
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							"{{book.title}}" 
+							&nbsp; - &nbsp;
 							{% for author in book.authors %}
 								{{author}}
 							{% endfor %}

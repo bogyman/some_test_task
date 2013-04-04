@@ -68,4 +68,6 @@ class AdminIndexView(admin.AdminIndexView):
             return redirect(url_for('do_login', redirect_to="admin"))
 
     def is_accessible(self):
-        return  login.current_user.is_admin
+        if not login.current_user.is_anonymous():
+            return login.current_user.is_admin
+        return False    

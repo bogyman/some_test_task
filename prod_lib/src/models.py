@@ -37,7 +37,7 @@ class Author(Base):
     __tablename__ = "authors"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
+    name = db.Column(db.String(255), unique=True)
     books = db.orm.relationship('Book',
                                 secondary="authors_books",
                                 )
@@ -55,7 +55,7 @@ class User(Base):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    login = db.Column(db.String(255), )
+    login = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
     is_admin = db.Column(db.Boolean)
     is_authorized = db.Column(db.Boolean)
