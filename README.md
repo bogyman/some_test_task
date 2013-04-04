@@ -12,7 +12,7 @@ According to the Task, has been implemented next:
 
 
 
-For run project please do the next steps
+For runing project please do the next steps
 --------------
     cd ./prod_lib/src
     sudo pip install -r requirements.txt # installing requirement packages
