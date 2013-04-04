@@ -8,7 +8,7 @@ According to the Task, has been implemented next:
 3. Anonymous  users can register himselfs or log in. After registration can do nothing during Admin set user`s 'is_authorized' to "True". 
 4. Searching the books by keyword. The searching occurs in books` titles and authors` names. If keyword is empty, whole list of books is shown. Every lists has paginations.
 5. Admin interface is available for users, who have 'is_admin' in 'True'
-6. Forms fields are validated for empty value.
+6. Forms fields are validated for empty value, unique values for User and Author.
 
 
 
