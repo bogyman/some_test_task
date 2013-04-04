@@ -15,88 +15,6 @@ def load_test_data():
     books = []
     authors = []
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     books.append(Book(title="Мастер и Маргарита"))
     books.append(Book(title="Преступление и наказание"))
     books.append(Book(title="Евгений Онегин"))
@@ -167,63 +85,17 @@ def load_test_data():
     books.append(Book(title="Король Лир"))
     books.append(Book(title="Обыкновенное чудо"))
 
-    books_iter = iter(books)
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     
     authors.append(Author(name="Михаил Булгаков", books=[books[4], books[1]]))
-    
-    
     authors.append(Author(name="Михаил Лермонтов", books=[books[7]]))
     authors.append(Author(name="Антуан де Сент-Экзюпери", books=[books[8]]))
-    
-    
-    
     authors.append(Author(name="Оскар Уайльд", books=[books[12]]))
-    
     authors.append(Author(name="Александр Грибоедов", books=[books[14]]))
     authors.append(Author(name="Маргарет Митчелл", books=[books[15]]))
-    
-    
-    
-    
     authors.append(Author(name="ОГенри", books=[books[20]]))
     authors.append(Author(name="Федор Достоевский", books=[books[21], books[0], books[13]]))
     authors.append(Author(name="Александр Дюма", books=[books[22], books[9]]))
-
     authors.append(Author(name="Джейн Остин", books=[books[24]]))
-    
-    
     authors.append(Author(name="Илья Ильф, Евгений Петров", books=[books[27], books[5]]))
     authors.append(Author(name="Даниель Дефо", books=[books[28]]))
     authors.append(Author(name="Иоганн Вольфганг фон Гёте", books=[books[29]]))
@@ -232,9 +104,7 @@ def load_test_data():
     authors.append(Author(name="Борис Васильев", books=[books[32]]))
     authors.append(Author(name="Николай Гоголь", books=[books[33], books[16], books[19]]))
     authors.append(Author(name="Джек Лондон", books=[books[34]]))
-     
     authors.append(Author(name="Алан Александр Милн", books=[books[36]]))
-    
     authors.append(Author(name="Ярослав Гашек", books=[books[38]]))
     authors.append(Author(name="Виктор Гюго", books=[books[39]]))
     authors.append(Author(name="Александр Беляев", books=[books[40]]))
@@ -245,7 +115,6 @@ def load_test_data():
     authors.append(Author(name="Александр Пушкин", books=[books[45], books[2], books[26]]))
     authors.append(Author(name="Эмили Бронте", books=[books[46]]))
     authors.append(Author(name="Колин Маккалоу", books=[books[47]]))
-    
     authors.append(Author(name="Эдгар По", books=[books[49]]))
     authors.append(Author(name="Теодор Драйзер", books=[books[50]]))
     authors.append(Author(name="Марк Твен", books=[books[51], books[25]]))

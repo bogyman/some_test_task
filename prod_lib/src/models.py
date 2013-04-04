@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash
 
 from database import Base
 
+# table for m2m 
 authors_books = db.Table(
     'authors_books',
     Base.metadata,
@@ -20,7 +21,8 @@ class Book(Base):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
-    authors = db.orm.relationship('Author',
+    authors = db.orm.relationship(
+                                  'Author',
                                   secondary="authors_books",
                                   )
 
@@ -38,7 +40,8 @@ class Author(Base):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True)
-    books = db.orm.relationship('Book',
+    books = db.orm.relationship(
+                                'Book',
                                 secondary="authors_books",
                                 )
 

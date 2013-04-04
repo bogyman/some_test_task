@@ -19,6 +19,7 @@ from database import db_session
 app = Flask(__name__)
 app.config.from_pyfile('settings.py')
 
+# Init admin`s views
 admin = Admin(app, "The LibRARy", index_view=AdminIndexView(template="admin/index.html"))
 admin.add_view(BooksAdminView(Book, db_session))
 admin.add_view(AuthorsAdminView(Author, db_session))
@@ -39,6 +40,8 @@ def list_books(page):
         form = BookSearchForm()
         books_query = None
         if request.method == 'POST' and form.q.data and form.validate_on_submit():
+            
+            # search-books query
             books_query = Book.query.filter(
                                             or_(
                                                 Book.authors.any(
@@ -48,7 +51,9 @@ def list_books(page):
                                                 )
                                             )
         else:
+            # if query is empty return all books
             books_query = Book.query
+        # items for current page
         items = books_query.limit(per_page).offset((page - 1) * per_page).all()
         books = Pagination(books_query, page, per_page, books_query.count(), items)
         return render_template('books.html', books=books, form=form)
@@ -76,14 +81,16 @@ def do_login(redirect_to=""):
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(login=form.login.data).first()
+        # password is hashed
         if user and check_password_hash(user.password, form.password.data):
             login.login_user(user)
             flash("Logged in successfully.")
+            # return prev page
             if redirect_to:
                 return redirect(redirect_to)
             return redirect(url_for("index"))
         else:
-            flash("bad login info")
+            flash("Bad login info")
     return render_template("login.html", form=form)
 
 
@@ -104,21 +111,24 @@ login_manager.setup_app(app)
 def load_user(user_id):
     return db_session.query(User).get(user_id)
 
-
+# Don`t  show error page
 @login_manager.unauthorized_handler
 def unauthorized():
     flash("Please log in first.")
     return redirect(url_for("index"))
 
 def is_logined():
+    # if user is only is_authenticated
     if not login.current_user.is_anonymous():
         return login.current_user.is_authenticated()
     return False
 
 def is_authorized():
+    # if user is is_authorized
     if not login.current_user.is_anonymous():
         return login.current_user.is_authorized
     return False    
 
+# global jinja vars for allow/deny parts of templates
 app.jinja_env.globals.update(is_logined=is_logined)
 app.jinja_env.globals.update(is_authorized=is_authorized)

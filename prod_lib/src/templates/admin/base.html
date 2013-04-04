@@ -32,11 +32,8 @@
             <li>
               <div style="float:right, width:100%" >
                   <div  style="float:right">
-                      {% if is_logined() %}
-                          <a href="{{ url_for('do_logout') }}">Log out</a>
-                      {% else %}
-                          <a style="float:right" href="{{ url_for('do_login') }}">Log in</a>
-                      {% endif %}
+                      <a style="margin-right:20px" href="{{ url_for('index') }}">Home</a>
+                      <a href="{{ url_for('do_logout') }}">Log out</a>
                   </div>
               </div>
             </li>
